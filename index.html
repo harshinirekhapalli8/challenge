@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Workout Posture Detection Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #004d99;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+        }
+        .left-panel, .right-panel {
+            width: 45%;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .card h2 {
+            color: #004d99;
+        }
+        .card p {
+            color: #555;
+        }
+        button {
+            background-color: #004d99;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        #videoFeed {
+            width: 100%;
+            border-radius: 10px;
+            height: 300px;
+            background-color: #e0e0e0;
+        }
+        .status {
+            padding: 10px;
+            background-color: #ff6666;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .status.good {
+            background-color: #66cc66;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Smart Workout Posture Detection</h1>
+</header>
+
+<div class="container">
+    <div class="left-panel">
+        <div class="card">
+            <h2>Live Video Feed</h2>
+            <video id="videoFeed" autoplay></video>
+            <button onclick="startVideoFeed()">Start Video</button>
+        </div>
+
+        <div class="card">
+            <h2>Posture Status</h2>
+            <div id="statusMessage" class="status">Please start your workout</div>
+            <button onclick="checkPosture()">Check Posture</button>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="card">
+            <h2>Guidance</h2>
+            <p id="guidanceMessage">Good posture is essential for an effective workout.</p>
+        </div>
+
+        <div class="card">
+            <h2>Exercise Suggestions</h2>
+            <p>Based on your posture, we will suggest exercises to improve it!</p>
+            <ul id="exerciseSuggestions">
+                <li>Stretch your back</li>
+                <li>Engage your core</li>
+                <li>Focus on alignment</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    let videoElement = document.getElementById("videoFeed");
+    let statusMessage = document.getElementById("statusMessage");
+    let guidanceMessage = document.getElementById("guidanceMessage");
+    let exerciseSuggestions = document.getElementById("exerciseSuggestions");
+
+    // Simulating posture check function
+    function checkPosture() {
+        // In a real scenario, you'd call a posture detection API here
+        // Simulating different posture results
+        let posture = Math.random() > 0.5 ? "good" : "bad";
+
+        if (posture === "good") {
+            statusMessage.textContent = "Great posture!";
+            statusMessage.className = "status good";
+            guidanceMessage.textContent = "You're doing great! Keep it up.";
+            exerciseSuggestions.innerHTML = "<li>Maintain this posture.</li><li>Focus on controlled movements.</li>";
+        } else {
+            statusMessage.textContent = "Incorrect posture detected.";
+            statusMessage.className = "status";
+            guidanceMessage.textContent = "Correct your posture for better results.";
+            exerciseSuggestions.innerHTML = "<li>Align your back straight.</li><li>Engage your core muscles.</li><li>Focus on proper breathing.</li>";
+        }
+    }
+
+    // Starting the video feed
+    function startVideoFeed() {
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    videoElement.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.log("Error accessing video stream:", error);
+                });
+        } else {
+            alert("Your browser does not support video streaming.");
+        }
+    }
+</script>
+
+</body>
+</html>
