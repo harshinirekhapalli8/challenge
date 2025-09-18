@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Fraud Detection Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+        }
+        .left-panel, .right-panel {
+            width: 45%;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .card h2 {
+            color: #28a745;
+        }
+        .card p {
+            color: #555;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .status {
+            padding: 10px;
+            background-color: #ff6666;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .status.good {
+            background-color: #66cc66;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Milk Fraud Detection Dashboard</h1>
+</header>
+
+<div class="container">
+    <div class="left-panel">
+        <div class="card">
+            <h2>Milk Sample Details</h2>
+            <p>Click the button below to check the sample's purity.</p>
+            <button onclick="checkMilkPurity()">Check Milk Sample</button>
+        </div>
+
+        <div class="card">
+            <h2>Fraud Detection Status</h2>
+            <div id="fraudStatus" class="status">Sample not checked yet</div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="card">
+            <h2>Guidance</h2>
+            <p id="guidanceMessage">Please check the milk sample to detect possible fraud or adulteration.</p>
+        </div>
+
+        <div class="card">
+            <h2>Actions</h2>
+            <ul id="actionList">
+                <li>Test the milk using a purity test kit.</li>
+                <li>Report suspicious findings to the authorities.</li>
+                <li>Contact the supplier for more information.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simulate milk fraud detection logic
+    let fraudStatusElement = document.getElementById("fraudStatus");
+    let guidanceMessage = document.getElementById("guidanceMessage");
+    let actionList = document.getElementById("actionList");
+
+    function checkMilkPurity() {
+        // In a real-world scenario, you would use sensor data or lab results
+        // Simulating with a random result to check if the milk is pure or adulterated
+        let isAdulterated = Math.random() > 0.5; // 50% chance of fraud
+
+        if (isAdulterated) {
+            fraudStatusElement.textContent = "Milk is Adulterated!";
+            fraudStatusElement.className = "status";
+            guidanceMessage.textContent = "The milk sample shows signs of adulteration.";
+            actionList.innerHTML = `
+                <li>Test the milk using a purity test kit.</li>
+                <li>Report the supplier for potential fraud.</li>
+                <li>Dispose of the adulterated milk.</li>
+            `;
+        } else {
+            fraudStatusElement.textContent = "Milk is Pure!";
+            fraudStatusElement.className = "status good";
+            guidanceMessage.textContent = "The milk sample is free from any adulteration.";
+            actionList.innerHTML = `
+                <li>No action needed. The milk is safe to use.</li>
+                <li>Ensure proper handling and storage of milk.</li>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>
